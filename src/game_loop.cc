@@ -2,22 +2,34 @@
 
 chip8::Emulator emulator;
 
-int main(int argc, char **argv){
-    setupGraphics();
-    setupInput();
+void SetupGraphics(){
+    // TODO: Stub for GLUT implementation
+}
 
-    Emulator.Initialize();
-    Emulator.LoadGame("pong");
+void SetupInput() {
+    // TODO: Bind callbacks
+}
+
+void DrawGraphics() {
+    // TODO: Stub for GLUT implementation
+}
+
+int main(int argc, char **argv){
+    SetupGraphics();
+    SetupInput();
+
+    emulator.Initialize();
+    emulator.LoadGame("pong");
 
     for(;;){
         // One cycle
-        Emulator.EmulateCycle();
+        emulator.EmulateCycle();
 
-        if(Emulator.drawFlat){
+        if(emulator.draw_flag()){
             DrawGraphics();
         }
 
         // Store key press state () 
-        Emulator.SetKeys();
+        emulator.SetKeys();
     }
 }
