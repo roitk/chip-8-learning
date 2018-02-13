@@ -14,9 +14,32 @@ void Emulator::EmulateCycle() {
     // Fetch opcode
     opcode_ = memory_[pc_] << 8 | memory_[pc_ + 1];
     // Decode and execute opcode
+    int cmdIndex = (opcode_ & 0xF000) >> 12;
+
+    // Array of function pointers to op commands
+    void (Emulator::*optable[16]) (unsigned short) = {
+        &chip8::Emulator::Op0NNN,
+        &chip8::Emulator::Op1NNN,
+        &chip8::Emulator::Op2NNN,
+        &chip8::Emulator::Op3NNN,
+        &chip8::Emulator::Op4NNN,
+        &chip8::Emulator::Op5NNN,
+        &chip8::Emulator::Op6NNN,
+        &chip8::Emulator::Op7NNN,
+        &chip8::Emulator::Op8NNN,
+        &chip8::Emulator::Op9NNN,
+        &chip8::Emulator::OpANNN,
+        &chip8::Emulator::OpBNNN,
+        &chip8::Emulator::OpCNNN,
+        &chip8::Emulator::OpDNNN,
+        &chip8::Emulator::OpENNN,
+        &chip8::Emulator::OpFNNN
+    };
+    (this->*(optable[cmdIndex]))(opcode_);
+
     switch(opcode_ & 0xF000) {
         case 0xA000:
-            index_ = opcode_ & 0xFFFF;
+            index_ = opcode_ & 0x0FFF;
             pc_ = pc_ + 2;
             break;
         default:
