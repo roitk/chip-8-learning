@@ -12,6 +12,7 @@ void Emulator::Op0NNN(unsigned short opcode) {
             for(int i = 0; i < kScreenSize; ++i) {
                 screen_[i] = 0;
             }
+            pc_ += 2;
             break;
         case 0x00EE:
             // TODO: how to return from an address?
