@@ -40,6 +40,8 @@ void Emulator::EmulateCycle() {
         &chip8::Emulator::OpENNN,
         &chip8::Emulator::OpFNNN
     };
+
+    // Call the correct operator based on the most significant nibble of the opcode
     (this->*(optable[cmdIndex]))(opcode);
 
     // Update timers
