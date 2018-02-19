@@ -18,7 +18,6 @@ int main(int argc, char **argv){
     SetupGraphics();
     SetupInput();
 
-    emulator.Initialize();
     emulator.LoadGame("pong");
 
     for(;;){

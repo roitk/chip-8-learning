@@ -7,9 +7,6 @@ namespace chip8 {
 Emulator::Emulator() {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     rng = std::default_random_engine(seed);
-}
-
-void Emulator::Initialize() {
     pc_ = 0x200;
     index_ = 0;
     pc_ = 0;

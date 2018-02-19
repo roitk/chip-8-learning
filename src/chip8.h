@@ -7,7 +7,7 @@ namespace chip8 {
 // Main emulator class
 class Emulator {
     public:
-        void Initialize();
+        Emulator();
         void EmulateCycle();
         void LoadGame(const std::string &gamename);
         void SetKeys();
