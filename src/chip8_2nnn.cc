@@ -7,7 +7,7 @@ namespace chip8 {
 void Emulator::Op2NNN(unsigned short opcode) {
     stack_[sp_] = pc_;
     ++sp_;
-    pc_ = opcode_ & 0x0FFF;
+    pc_ = opcode & 0x0FFF;
 }
 
 }

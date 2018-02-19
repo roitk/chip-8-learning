@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <random>
 
 namespace chip8 {
 
@@ -30,9 +31,6 @@ class Emulator {
         void OpENNN(unsigned short opcode);
         void OpFNNN(unsigned short opcode);
         
-        // Current opcode
-        unsigned short opcode_;
-
         // System memory
         unsigned char memory_[4096];
         // Registers
@@ -60,6 +58,9 @@ class Emulator {
 
         // Draw flag
         bool draw_flag_;
+
+        // Random number generator
+        std::default_random_engine rng;
 };
 
 }

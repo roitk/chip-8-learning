@@ -1,20 +1,25 @@
 #include "chip8.h"
 #include <iostream>
+#include <chrono>
 
 namespace chip8 {
 
+Emulator::Emulator() {
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    rng = std::default_random_engine(seed);
+}
+
 void Emulator::Initialize() {
     pc_ = 0x200;
-    opcode_ = 0;
     index_ = 0;
     pc_ = 0;
 }
 
 void Emulator::EmulateCycle() {
     // Fetch opcode
-    opcode_ = memory_[pc_] << 8 | memory_[pc_ + 1];
+    unsigned short opcode = memory_[pc_] << 8 | memory_[pc_ + 1];
     // Decode and execute opcode
-    int cmdIndex = (opcode_ & 0xF000) >> 12;
+    int cmdIndex = (opcode & 0xF000) >> 12;
 
     // Array of function pointers to op commands
     void (Emulator::*optable[16]) (unsigned short) = {
@@ -35,16 +40,8 @@ void Emulator::EmulateCycle() {
         &chip8::Emulator::OpENNN,
         &chip8::Emulator::OpFNNN
     };
-    (this->*(optable[cmdIndex]))(opcode_);
+    (this->*(optable[cmdIndex]))(opcode);
 
-    switch(opcode_ & 0xF000) {
-        case 0xA000:
-            index_ = opcode_ & 0x0FFF;
-            pc_ = pc_ + 2;
-            break;
-        default:
-            std::cout << "Unknown opcode: 0x" << std::hex << opcode_ << std::endl;
-    }
     // Update timers
     if(delay_timer_ > 0) {
         --delay_timer_;
