@@ -15,10 +15,12 @@ void Emulator::Op0NNN(unsigned short opcode) {
             pc_ += 2;
             break;
         case 0x00EE:
-            // TODO: how to return from an address?
+            pc_ = stack_[sp_];
+            --sp_;
             break;
         default:
-            // TODO: RCA instruction
+            // TODO: Unknown opcode
+            pc_ += 2;
             break;
     }
 }

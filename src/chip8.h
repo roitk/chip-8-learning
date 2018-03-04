@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <random>
+#include <unordered_map>
+#include <iostream>
 
 namespace chip8 {
 
@@ -61,6 +63,26 @@ class Emulator {
 
         // Random number generator
         std::default_random_engine rng;
+
+        // Valid keys
+        std::unordered_map<char, char> keypad_mapping_ = {
+            {'1', '1'},
+            {'2', '2'},
+            {'3', '3'},
+            {'4', 'c'},
+            {'q', '4'},
+            {'w', '5'},
+            {'e', '6'},
+            {'r', 'd'},
+            {'a', '7'},
+            {'s', '8'},
+            {'d', '9'},
+            {'f', 'e'},
+            {'z', 'a'},
+            {'x', '0'},
+            {'c', 'b'},
+            {'v', 'f'}
+        };
 };
 
 }

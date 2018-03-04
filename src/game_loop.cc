@@ -1,4 +1,5 @@
 #include "chip8.h"
+#include <termios.h>
 
 chip8::Emulator emulator;
 
@@ -7,6 +8,12 @@ void SetupGraphics(){
 }
 
 void SetupInput() {
+    // Using the termios header, we set up input to not require an ENTER press after each keystroke
+    // We may not need this when we start doing GLUT
+    struct termios t;
+    tcgetattr(0, &t);
+    t.c_lflag &= ~ICANON;
+    tcsetattr(0, TCSANOW, &t);
     // TODO: Bind callbacks
 }
 
