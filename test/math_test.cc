@@ -3,7 +3,7 @@
 
 namespace {
 
-test(OpcodeTest, Op6XNN) {
+TEST(OpcodeTest, Op6XNN) {
     // TODO: test const here
 }
 
