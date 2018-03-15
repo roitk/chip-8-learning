@@ -14,6 +14,7 @@ class Emulator {
         void LoadGame(const std::string &gamename);
         void SetKeys();
         bool draw_flag();
+        void Start();
     private:
         static const int kScreenSize = 64 * 32;
         void Op0NNN(unsigned short opcode);
